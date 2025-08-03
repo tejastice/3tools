@@ -172,8 +172,12 @@
             const length = parseInt(passwordLength.value);
             let password = '';
 
+            // 暗号学的に安全な乱数生成を使用
+            const array = new Uint32Array(length);
+            crypto.getRandomValues(array);
+
             for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
+                const randomIndex = array[i] % charset.length;
                 password += charset[randomIndex];
             }
 
